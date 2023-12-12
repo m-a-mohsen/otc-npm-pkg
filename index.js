@@ -9,20 +9,29 @@ import { createSpinner } from 'nanospinner';
 
 let playerName;
 
-const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms = 1500) => new Promise((r) => setTimeout(r, ms));
 
 async function welcome() {
-  const rainbowTitle = chalkAnimation.rainbow(
-    'Who Wants To Be A JavaScript Millionaire? \n'
-  );
+    console.clear();
+    const rainbowTitle = chalkAnimation.glitch("\n It is not a Glitch ");
+    await sleep();
+    await sleep();
+    rainbowTitle.stop();
+    console.clear();
+  const rainbowTitle2 = chalkAnimation.neon(`
+    #! Open Tech Camp !#
+    Welcome to the Game
+    `);
+    await sleep();
+    await sleep();
 
-  await sleep();
-  rainbowTitle.stop();
-
+    rainbowTitle2.stop();
+  
+  
   console.log(`
     ${chalk.bgBlue('HOW TO PLAY')} 
-    I am a process on your computer.
-    If you get any question wrong I will be ${chalk.bgRed('killed')}
+    If you correctly answered all 5 questions, you will get to know the planed release date.
+    If you get any question wrong You will be ${chalk.bgRed('Kicked out')}
     So get all the questions right...
 
   `);
@@ -31,7 +40,7 @@ async function welcome() {
 async function handleAnswer(isCorrect) {
   const spinner = createSpinner('Checking answer...').start();
   await sleep();
-
+console.clear();
   if (isCorrect) {
     spinner.success({ text: `Nice work ${playerName}. That's a legit answer` });
   } else {
@@ -51,57 +60,76 @@ async function askName() {
   });
 
   playerName = answers.player_name;
+  console.clear();
 }
 
 function winner() {
   console.clear();
-  figlet(`Congrats , ${playerName} !\n $ 1 , 0 0 0 , 0 0 0`, (err, data) => {
-    console.log(gradient.pastel.multiline(data) + '\n');
 
-    console.log(
-      chalk.green(
-        `Programming isn't about what you know; it's about making the command line look cool`
-      )
-    );
-    process.exit(0);
-  });
+  figlet.text(
+    `#! Open Tech Camp`,
+    {
+      font: "ANSI Shadow",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+      width: 100,
+      whitespaceBreak: true,
+    },
+    (err, data) => {
+      console.log(gradient.pastel.multiline(data) + "\n");
+
+      console.log(chalk.redBright(`Release date is yet TBD\n`));
+      console.log(
+        chalk.green(
+          `Programming isn't about what you know;it's about making the command line look cool`
+        )
+      );
+      console.log(
+        chalk.blueBright(
+          `Credits to: (Fireship.io)
+            `
+        )
+      );
+      process.exit(0);
+    }
+  );
 }
 
 async function question1() {
   const answers = await inquirer.prompt({
     name: 'question_1',
     type: 'list',
-    message: 'JavaScript was created in 10 days then released on\n',
+    message: ' Which is your favorite cohort in 2023\n',
     choices: [
-      'May 23rd, 1995',
-      'Nov 24th, 1995',
-      'Dec 4th, 1995',
-      'Dec 17, 1996',
+      'Lime',
+      'Lime',
+      'Lime',
+      'or, Lime',
     ],
   });
 
-  return handleAnswer(answers.question_1 === 'Dec 4th, 1995');
+  return handleAnswer(true);
 }
 
 async function question2() {
   const answers = await inquirer.prompt({
     name: 'question_2',
     type: 'list',
-    message: 'What is x? var x = 1_1 + "1" + Number(1)\n',
-    choices: ['4', '"4"', '"1111"', '69420'],
+    message: 'When asking "Jan" a question, you should\n',
+    choices: ['be concise', 'use the right technical terms', 'all  of the above', 'Better not ask him at all'],
   });
-  return handleAnswer(answers.question_2 === '"1111"');
+  return handleAnswer(answers.question_2 === "Better not ask him at all");
 }
 
 async function question3() {
   const answers = await inquirer.prompt({
     name: 'question_3',
     type: 'list',
-    message: `What is the first element in the array? ['🐏', '🦙', '🐍'].length = 0\n`,
-    choices: ['0', '🐏', '🐍', 'undefined'],
+    message: `What is the first thing you do in TEAM projects\n`,
+    choices: ['github repo', 'plan your tasks', 'google new tech MEMES' ],
   });
 
-  return handleAnswer(answers.question_3 === 'undefined');
+  return handleAnswer(answers.question_3 === "google new tech MEMES");
 }
 
 async function question4() {
