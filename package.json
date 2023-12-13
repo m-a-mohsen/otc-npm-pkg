@@ -1,8 +1,8 @@
 {
   "name": "open-tech-camp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Deliver personalized educational content, and leave no one behind",
-  "homepage": "https://m-a-mohsen.com",
+  "homepage": "https://otc.m-a-mohsen.com",
   "type": "module",
   "repository": {
     "type": "git",
